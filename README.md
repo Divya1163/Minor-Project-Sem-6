@@ -399,6 +399,57 @@ MIT License - See LICENSE file for details
 - scikit-learn for ML tools
 - Next.js and React communities
 - shadcn/ui for component library
+## Video Demonstration
+
+A complete walkthrough of the **Thermal Comfort Predictor** application is available in the demo video below.  
+The demonstration shows how the system predicts thermal comfort using the trained **Random Forest Machine Learning model** and explains the user interface and analytics features.
+
+### What the Demo Shows
+
+The video demonstration includes:
+
+1. **Launching the Application**
+   - Running the development server
+   - Opening the web application in the browser
+
+2. **Using the Prediction Interface**
+   - Entering environmental parameters:
+     - Air Temperature
+     - Mean Radiant Temperature
+     - Relative Humidity
+     - Air Velocity
+     - Metabolic Rate
+     - Clothing Insulation
+
+3. **Generating Thermal Comfort Predictions**
+   - Thermal Sensation Vote (TSV)
+   - Comfort Category
+   - PMV Index
+   - PPD Index
+   - Confidence Score
+   - Natural language explanation of results
+
+4. **Client-side vs Server-side Prediction**
+   - Switching prediction modes
+   - Demonstrating the hybrid ML prediction system
+
+5. **Model Performance Dashboard**
+   - Training vs testing accuracy
+   - Feature importance visualization
+   - Confusion matrix analysis
+   - Model configuration overview
+
+6. **Analytics Dashboard**
+   - Temperature distribution charts
+   - Humidity analysis
+   - Environmental insights
+   - Comfort zone visualization
+
+### Watch the Demo
+
+
+https://github.com/user-attachments/assets/bfd52d3e-9bc1-4505-8774-4f4f3dea47d1
+
 
 ---
 
