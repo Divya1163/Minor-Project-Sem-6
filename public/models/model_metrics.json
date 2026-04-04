@@ -1,0 +1,34 @@
+{
+  "train_accuracy": 0.6505,
+  "test_accuracy": 0.5363,
+  "model_type": "Random Forest",
+  "classes": [
+    "Cool",
+    "Comfortable",
+    "Warm"
+  ],
+  "features": [
+    "Air Temp",
+    "Radiant Temp",
+    "Humidity",
+    "Air Velocity",
+    "Met Rate",
+    "Clothing",
+    "Heat Index",
+    "Operative Temp",
+    "Cooling Effect",
+    "Insulation\u00d7Activity"
+  ],
+  "feature_importances": {
+    "Air Temp": 0.1988,
+    "Radiant Temp": 0.1254,
+    "Humidity": 0.0628,
+    "Air Velocity": 0.0536,
+    "Met Rate": 0.0717,
+    "Clothing": 0.0655,
+    "Heat Index": 0.0692,
+    "Operative Temp": 0.2037,
+    "Cooling Effect": 0.087,
+    "Insulation\u00d7Activity": 0.0623
+  }
+}
