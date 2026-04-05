@@ -1,460 +1,239 @@
-# Thermal Comfort Predictor - Full-Stack ML Application
+# Thermal Comfort Predictor
+### Minor Project — Semester 6
 
-A production-ready, AI-powered web application for predicting thermal comfort levels using machine learning. Built with Next.js 16, React 19, TypeScript, and trained on the ASHRAE Global Thermal Comfort Database II.
+An AI-powered web application that predicts **Thermal Comfort** levels based on environmental and personal parameters. Built using **XGBoost Machine Learning**, a **Flask REST API backend**, and a **Next.js frontend**.
 
-## Key Features
+---
 
-### Machine Learning Capabilities
-- **Random Forest ML Model** trained on 2,000+ real thermal comfort observations
-- **Hybrid Prediction System** - Client-side + Server-side with automatic fallback
-- **78-82% Accuracy** - Tested on real ASHRAE thermal comfort data
-- **7-class Classification** - Thermal Sensation Vote (TSV) from Cold (-3) to Hot (+3)
-- **Explainable Predictions** - Natural language explanations for every prediction
-- **Confidence Scoring** - Reliability metrics (0-100%)
+## 📌 Project Overview
 
-### Thermal Comfort Prediction
-- **6 Input Parameters**:
-  - Air Temperature (-50°C to 50°C)
-  - Mean Radiant Temperature (-50°C to 80°C)
-  - Relative Humidity (0-100%)
-  - Air Velocity (0-5 m/s)
-  - Metabolic Rate (0.5-5 met)
-  - Clothing Insulation (0-3 clo)
+Thermal comfort refers to the condition of mind that expresses satisfaction with the thermal environment. This project predicts the **Thermal Sensation Vote (TSV)** — a 7-class scale from Cold (−3) to Hot (+3) — using 6 input parameters based on the **ASHRAE Standard 55**.
 
-- **Advanced Metrics**:
-  - Thermal Sensation Vote (TSV)
-  - Comfort Category
-  - PMV Index (Predicted Mean Vote)
-  - PPD Index (Predicted Percentage Dissatisfied)
-  - Acceptability Score
+The model is trained on real Indian climate thermal comfort data, making it relevant for tropical and subtropical conditions.
 
-### Model Performance Dashboard
-- Accuracy comparison (Train vs Test)
-- Feature importance visualization
-- Confusion matrix analysis
-- Per-category performance metrics
-- Model architecture overview
-- Training configuration details
+---
 
-### Interactive Features
-- **Sample Scenarios** - Quick-load example environments
-- **Real-time Validation** - Input parameter checking with ranges
-- **Prediction Mode Toggle** - Switch between client and server
-- **Smart Recommendations** - Actionable comfort improvement suggestions
-- **Responsive Design** - Works on mobile, tablet, desktop
+## 🧠 Machine Learning Model
 
-### Analytics Dashboard
-- Temperature distribution analysis
-- Humidity patterns and trends
-- Comfort zone identification
-- Seasonal variations
-- Statistical insights
+| Property | Detail |
+|---|---|
+| **Algorithm** | XGBoost Classifier |
+| **Dataset** | India Thermal Comfort Data (`india_data_cleaned.csv`) |
+| **Training Samples** | ~150,000 observations |
+| **Features** | 6 (ta, tr, rh, v, met, clo) |
+| **Target** | Thermal Sensation Vote (TSV): −3 to +3 |
+| **Train/Test Split** | 80% / 20% (stratified) |
+| **Saved Model** | `india_xgb_model.pkl` |
+| **Saved Scaler** | `india_scaler.pkl` |
 
-## Technology Stack
+### Input Features
 
-### Frontend
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript 5
-- **UI Library**: React 19
-- **Components**: shadcn/ui with Radix UI
-- **Styling**: Tailwind CSS v4 with custom design tokens
-- **Charts**: Recharts for data visualization
-- **Icons**: Lucide React
+| Parameter | Symbol | Unit | Range |
+|---|---|---|---|
+| Air Temperature | ta | °C | −10 to 55 |
+| Mean Radiant Temperature | tr | °C | −10 to 80 |
+| Relative Humidity | rh | % | 0 to 100 |
+| Air Velocity | v | m/s | 0 to 5 |
+| Metabolic Rate | met | met | 0.5 to 5 |
+| Clothing Insulation | clo | clo | 0 to 3 |
 
-### Backend
-- **API**: Next.js Route Handlers
-- **Runtime**: Node.js 18+
-- **Deployment**: Vercel, Docker, traditional servers
+### Output: Thermal Sensation Vote (TSV)
+
+| TSV | Label | Comfort Category |
+|---|---|---|
+| −3 | Cold | Very Uncomfortable |
+| −2 | Cool | Uncomfortable |
+| −1 | Slightly Cool | Slightly Uncomfortable |
+| 0 | Neutral | Comfortable ✅ |
+| +1 | Slightly Warm | Slightly Uncomfortable |
+| +2 | Warm | Uncomfortable |
+| +3 | Hot | Very Uncomfortable |
+
+### Model Results
+Training results and evaluation charts are saved in the `Results/` folder:
+- `Results/confusion_matrix.png` — Per-class prediction accuracy
+- `Results/feature_importance.png` — Which features matter most
+- `Results/train_vs_test_accuracy.png` — Train vs test accuracy comparison
+- `Results/class_distribution.png` — Dataset class balance
+
+---
+
+## 🗂️ Project Structure
+
+```
+Minor-Project-Sem-6/
+│
+├── thermal_comfort_training.ipynb   # ML training notebook (XGBoost)
+├── india_data.csv                   # Raw dataset
+├── india_data_cleaned.csv           # Cleaned dataset
+├── india_xgb_model.pkl              # Trained XGBoost model
+├── india_scaler.pkl                 # Feature scaler (StandardScaler)
+├── model_info.json                  # Model metadata and accuracy
+├── anlytics.ipynb                   # Data analysis notebook
+│
+├── backend/
+│   ├── app.py                       # Flask REST API server
+│   └── requirements.txt             # Python dependencies
+│
+├── app/
+│   ├── page.tsx                     # Home — Prediction interface
+│   ├── api/predict/route.ts         # Next.js API route → calls Flask
+│   ├── model-performance/page.tsx   # ML model metrics page
+│   └── analytics/page.tsx           # Analytics dashboard
+│
+├── components/
+│   ├── ml-prediction-form.tsx       # Main prediction form
+│   ├── model-performance.tsx        # Model metrics dashboard
+│   └── analytics-dashboard.tsx      # Charts and analytics
+│
+├── lib/
+│   ├── ml-model.ts                  # Client-side utilities & validation
+│   └── utils.ts                     # Shared utilities
+│
+├── Results/                         # Model evaluation charts
+├── public/                          # Static assets
+├── styles/                          # CSS styles
+└── requirements.txt                 # Python dependencies
+```
+
+---
+
+## 🚀 How to Run the Project
+
+### Prerequisites
+- Python 3.9+ with Anaconda (recommended)
+- Node.js 18+
+- Git
+
+### Step 1 — Clone the Repository
+```bash
+git clone https://github.com/Divya1163/Minor-Project-Sem-6.git
+cd Minor-Project-Sem-6
+```
+
+### Step 2 — Start the Flask Backend
+Open **Terminal 1**:
+```bash
+cd backend
+pip install flask flask-cors
+python app.py
+```
+Flask API will run at: `http://localhost:5000`
+
+Verify it's working: open `http://localhost:5000/health` in your browser.
+Expected response:
+```json
+{ "model_loaded": true, "scaler_loaded": true, "status": "ready" }
+```
+
+### Step 3 — Start the Next.js Frontend
+Open **Terminal 2**:
+```bash
+cd Minor-Project-Sem-6
+npm install
+npm run dev
+```
+Frontend will run at: `http://localhost:3000`
+
+### Step 4 — Use the App
+Open `http://localhost:3000` in your browser, enter the 6 parameters and click **Predict Comfort**.
+
+---
+
+## 🔁 System Architecture
+
+```
+User (Browser)
+     │
+     ▼
+Next.js Frontend (localhost:3000)
+     │  enters parameters → clicks Predict
+     ▼
+Next.js API Route (/api/predict)
+     │  forwards request
+     ▼
+Flask Backend (localhost:5000/predict)
+     │  loads model → scales input → predicts
+     ▼
+XGBoost Model (india_xgb_model.pkl)
+     │  returns TSV class
+     ▼
+Response displayed on Frontend
+```
+
+---
+
+## 📓 Training the Model
+
+The complete training pipeline is in `thermal_comfort_training.ipynb`. It covers:
+
+1. Load and explore `india_data_cleaned.csv`
+2. Add Mean Radiant Temperature (`tr = ta` approximation for indoor environments)
+3. Train/Test split — 80/20 stratified
+4. Feature scaling with `StandardScaler`
+5. Train XGBoost Classifier (300 estimators, max depth 6)
+6. Evaluate — accuracy, classification report, confusion matrix
+7. Save model as `india_xgb_model.pkl` and scaler as `india_scaler.pkl`
+8. Save result charts to `Results/` folder
+
+To retrain:
+```bash
+# Open Jupyter
+jupyter notebook thermal_comfort_training.ipynb
+# Run all cells
+```
+
+---
+
+## 🛠️ Tech Stack
 
 ### Machine Learning
-- **Training**: Python scikit-learn
-- **Model**: Random Forest Classifier (200 trees)
-- **Data Source**: ASHRAE Global Thermal Comfort Database II
-- **Features**: 6 thermal parameters
-- **Output**: 7-class TSV classification
+- Python, XGBoost, scikit-learn, pandas, numpy
+- Matplotlib, Seaborn (visualizations)
 
-## Quick Start
+### Backend
+- Flask (REST API)
+- Flask-CORS (cross-origin requests)
 
-### 1. Installation
-```bash
-# Clone repository
-git clone <your-repo>
-cd thermal-comfort-predictor
+### Frontend
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- Recharts (data visualization)
 
-# Install dependencies
-npm install
+---
 
-# Optional: Python for ML training
-pip install -r requirements.txt
-```
+## 📊 API Reference
 
-### 2. Run Development Server
-```bash
-npm run dev
-# Visit http://localhost:3000
-```
-
-### 3. Try Predictions
-- Use the interactive prediction form
-- Try sample scenarios (Ideal Office, Hot Summer, etc.)
-- Toggle between client and server predictions
-- Check the ML Model page for performance metrics
-
-### 4. Train Your Own Model (Optional)
-```bash
-# Download ASHRAE dataset from Kaggle
-# Place in scripts/data/ASHRAE_DB2.csv
-
-# Run training pipeline
-python scripts/process_ashrae_data.py
-
-# Models saved to public/models/
-```
-
-## Project Structure
-
-```
-thermal-comfort-predictor/
-├── app/
-│   ├── page.tsx                      # Home - Prediction interface
-│   ├── model-performance/
-│   │   └── page.tsx                  # ML model analytics
-│   ├── analytics/
-│   │   └── page.tsx                  # Environmental analytics
-│   ├── api/predict/
-│   │   └── route.ts                  # Prediction API endpoint
-│   └── layout.tsx                    # Root layout
-├── components/
-│   ├── ml-prediction-form.tsx        # Main ML prediction form
-│   ├── model-performance.tsx         # Model metrics dashboard
-│   ├── navigation.tsx                # Navigation bar
-│   ├── analytics-dashboard.tsx       # Environmental charts
-│   └── ui/                           # Shadcn/ui components
-├── lib/
-│   ├── ml-model.ts                   # Client-side ML model (297 lines)
-│   └── utils.ts                      # Utilities
-├── scripts/
-│   ├── process_ashrae_data.py        # ML training pipeline (294 lines)
-│   └── data/                         # ASHRAE dataset (add here)
-├── public/models/                    # Trained models (after training)
-├── ML_SYSTEM.md                      # ML system documentation
-├── INSTALLATION.md                   # Setup guide
-├── FEATURES.md                       # Complete feature list
-└── requirements.txt                  # Python dependencies
-```
-
-## Documentation
-
-### Main Documentation
-- **`ML_SYSTEM.md`** (550 lines) - Complete ML system architecture, API reference, troubleshooting
-- **`INSTALLATION.md`** (527 lines) - Step-by-step setup guide, deployment options
-- **`FEATURES.md`** (500+ lines) - Feature showcase and capabilities
-
-### Quick Reference
-- **`QUICKSTART.md`** - 30-second setup
-- **`START_HERE.md`** - Quick entry point
-- **`PROJECT_SUMMARY.md`** - Feature overview
-
-## ML Model Details
-
-### Algorithm
-- **Type**: Random Forest Classifier
-- **Trees**: 200
-- **Max Depth**: 20
-- **Classes**: 7 (TSV -3 to +3)
-
-### Performance
-- **Training Accuracy**: 82.34%
-- **Test Accuracy**: 78.15%
-- **Balanced Accuracy**: 79.5%
-- **Training Data**: 2,000+ ASHRAE observations
-
-### Feature Importance (ASHRAE-based ranking)
-1. **Temperature (35%)** - Air + Radiant
-2. **Humidity (25%)** - Moisture content
-3. **Air Velocity (18%)** - Air movement
-4. **Clothing (12%)** - Insulation level
-5. **Metabolic Rate (8%)** - Activity level
-6. **Radiant Temp (2%)** - Radiation effects
-
-## Client-Side ML Model
-
-The `lib/ml-model.ts` provides lightweight client-side predictions:
-
-```typescript
-import { predictThermalComfort } from '@/lib/ml-model';
-
-const result = predictThermalComfort({
-  ta: 22,   // Air temp
-  tr: 22,   // Radiant temp
-  rh: 50,   // Humidity
-  v: 0.1,   // Air velocity
-  met: 1.0, // Activity
-  clo: 0.5  // Clothing
-});
-
-// Returns: {
-//   tsv: 0,
-//   comfortCategory: 'Comfortable',
-//   confidence: 0.85,
-//   explanation: '...',
-//   phdIndex: -0.15,
-//   acceptabilityIndex: 8
-// }
-```
-
-**Features:**
-- Zero external dependencies
-- ~300 lines of TypeScript
-- <1ms prediction time
-- Offline capable
-- ~50KB minified
-
-## API Endpoints
-
-### POST /api/predict
-Make a thermal comfort prediction
-
-**Request:**
+### POST `/predict` (Flask — port 5000)
 ```json
+Request:
 {
-  "ta": 22,
-  "tr": 22,
-  "rh": 50,
-  "v": 0.1,
-  "met": 1.0,
-  "clo": 0.5
+  "ta": 22, "tr": 22, "rh": 50,
+  "v": 0.1, "met": 1.0, "clo": 0.5
 }
-```
 
-**Response:**
-```json
+Response:
 {
   "success": true,
   "prediction": {
     "tsv": 0,
+    "tsv_label": "Neutral (Comfortable)",
     "comfort_category": "Comfortable",
-    "confidence": 0.85,
-    "explanation": "Comfortable operative temperature..."
+    "confidence": 0.91,
+    "confidence_pct": "91.0%",
+    "recommendation": "Conditions are ideal. No changes needed."
   }
 }
 ```
 
-### GET /api/predict
-Get model information
+---
 
-## Deployment
-
-### Vercel (Recommended)
-```bash
-vercel deploy
-```
-
-### Docker
-```bash
-docker build -t thermal-comfort .
-docker run -p 3000:3000 thermal-comfort
-```
-
-### Traditional Server
-```bash
-npm run build
-npm start
-```
-
-## Development
-
-### Available Commands
-```bash
-npm run dev      # Development server
-npm run build    # Production build
-npm start        # Production server
-npm run lint     # Linting
-
-# Python ML training
-python scripts/process_ashrae_data.py
-```
-
-### Adding Features
-1. **New Scenario**: Edit `components/sample-scenarios.tsx`
-2. **New Parameter**: Update `lib/ml-model.ts` and form
-3. **Custom Model**: Modify `scripts/process_ashrae_data.py`
-
-## Performance
-
-### Speed
-- Client prediction: <1ms
-- Server prediction: 10-100ms
-- Page load: <2s
-
-### Accuracy
-- Neutral conditions: ~90%
-- Moderate conditions: ~80%
-- Extreme conditions: ~70%
-
-### Scalability
-- Single instance: 100+ req/sec
-- Horizontal scaling: Linear
-- Serverless ready: Yes
-
-## Thermal Comfort Standards
-
-This application implements thermal comfort prediction based on:
-- **ASHRAE Standard 55** - Thermal Environmental Conditions for Human Occupancy
-- **ISO 7730** - Ergonomics of the Thermal Environment
-- **PMV/PPD Model** - Fanger's Predicted Mean Vote / Predicted Percentage Dissatisfied
-
-## Data Source
-
-- **ASHRAE Global Thermal Comfort Database II**
-- ~2,000+ thermal comfort observations
-- Real indoor HVAC environments
-- Multiple climate zones
-- [Download from Kaggle](https://www.kaggle.com/datasets/claytonmiller/ashrae-global-thermal-comfort-database-ii)
-
-## Key Statistics
-
-- **Total Lines of Code**: 3,000+
-- **ML Training Script**: 294 lines
-- **Client ML Model**: 297 lines
-- **UI Components**: 1,500+ lines
-- **Documentation**: 2,000+ lines
-- **Total Documentation**: 5+ detailed guides
-
-## Troubleshooting
-
-### Model not found
-```bash
-# Ensure data is in scripts/data/
-python scripts/process_ashrae_data.py
-```
-
-### Predictions inaccurate
-- Check input parameter ranges
-- Compare client vs server predictions
-- Verify temperature in Celsius
-
-### Port 3000 in use
-```bash
-npm run dev -- -p 3001
-```
-
-See `INSTALLATION.md` for more troubleshooting.
-
-## Browser Support
-
-- Chrome/Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Accessibility
-
-- WCAG AA compliant
-- Semantic HTML
-- Keyboard navigation
-- Screen reader support
-- High contrast mode
-
-## Performance Metrics
-
-- Lighthouse Score: 90+
-- Core Web Vitals: Good
-- FCP: <1.5s
-- LCP: <2.5s
-
-## Contributing
-
-Improvements welcome! Areas for contribution:
-- Additional ML algorithms
-- Enhanced visualizations
-- Performance optimizations
-- Documentation improvements
-- Test coverage expansion
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Support Resources
-
-- **ML System Deep Dive**: See `ML_SYSTEM.md`
-- **Setup & Installation**: See `INSTALLATION.md`
-- **Feature Showcase**: See `FEATURES.md`
-- **Quick Start**: See `QUICKSTART.md`
-
-## Next Steps
-
-1. ✓ Run `npm install && npm run dev`
-2. ✓ Visit http://localhost:3000
-3. ✓ Try making predictions
-4. ✓ Check ML Model page for metrics
-5. ✓ Read `ML_SYSTEM.md` for deep dive
-6. ✓ Train your own model (see `INSTALLATION.md`)
-7. ✓ Deploy to production
-
-## Acknowledgments
-
-- ASHRAE for the thermal comfort database
-- scikit-learn for ML tools
-- Next.js and React communities
-- shadcn/ui for component library
-## Video Demonstration
-
-A complete walkthrough of the **Thermal Comfort Predictor** application is available in the demo video below.  
-The demonstration shows how the system predicts thermal comfort using the trained **Random Forest Machine Learning model** and explains the user interface and analytics features.
-
-### What the Demo Shows
-
-The video demonstration includes:
-
-1. **Launching the Application**
-   - Running the development server
-   - Opening the web application in the browser
-
-2. **Using the Prediction Interface**
-   - Entering environmental parameters:
-     - Air Temperature
-     - Mean Radiant Temperature
-     - Relative Humidity
-     - Air Velocity
-     - Metabolic Rate
-     - Clothing Insulation
-
-3. **Generating Thermal Comfort Predictions**
-   - Thermal Sensation Vote (TSV)
-   - Comfort Category
-   - PMV Index
-   - PPD Index
-   - Confidence Score
-   - Natural language explanation of results
-
-4. **Client-side vs Server-side Prediction**
-   - Switching prediction modes
-   - Demonstrating the hybrid ML prediction system
-
-5. **Model Performance Dashboard**
-   - Training vs testing accuracy
-   - Feature importance visualization
-   - Confusion matrix analysis
-   - Model configuration overview
-
-6. **Analytics Dashboard**
-   - Temperature distribution charts
-   - Humidity analysis
-   - Environmental insights
-   - Comfort zone visualization
-
-### Watch the Demo
-
-
-https://github.com/user-attachments/assets/bfd52d3e-9bc1-4505-8774-4f4f3dea47d1
-
+## 👥 Team
+Minor Project — Semester 6
 
 ---
 
-**Status**: Production Ready ✓
-
-**Last Updated**: 2026
-
-For questions or issues, check the comprehensive documentation files included in the project.
+## 📄 License
+MIT License
