@@ -1,0 +1,33 @@
+{
+  "features": [
+    "ta",
+    "tr",
+    "rh",
+    "v",
+    "met",
+    "clo"
+  ],
+  "target": "thermal_sensation",
+  "classes_original": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "classes_shifted": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "shift_offset": 3,
+  "train_accuracy": 0.691,
+  "test_accuracy": 0.4347,
+  "note": "Predict using shifted labels (0-6), then subtract 3 to get TSV (-3 to +3)"
+}
