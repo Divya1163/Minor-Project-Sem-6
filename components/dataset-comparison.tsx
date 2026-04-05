@@ -255,7 +255,7 @@ export function DatasetComparison() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="text-xs text-muted-foreground">Algorithm</p>
-            <p className="font-semibold text-foreground">Random Forest</p>
+            <p className="font-semibold text-foreground">XGBoost</p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Accuracy</p>

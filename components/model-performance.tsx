@@ -41,7 +41,7 @@ const defaultMetrics: ModelMetrics = {
   model_params: {
     n_estimators: 200,
     max_depth: 20,
-    algorithm: 'Random Forest'
+    algorithm: 'XGBoost'
   }
 };
 
@@ -72,7 +72,7 @@ export function ModelPerformance() {
           Model Performance & Analytics
         </h2>
         <p className="text-muted-foreground mt-1">
-          Random Forest classifier trained on ASHRAE Global Thermal Comfort Database II
+          XGBoost Classifier trained on India Thermal Comfort Dataset
         </p>
       </div>
 
@@ -260,7 +260,7 @@ export function ModelPerformance() {
           </div>
 
           <div className="p-4 bg-secondary/30 rounded-lg">
-            <p className="text-sm font-semibold mb-2">Random Forest Classifier</p>
+            <p className="text-sm font-semibold mb-2">XGBoost Classifier</p>
             <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
               <div>Trees: {metrics.model_params.n_estimators}</div>
               <div>Max Depth: {metrics.model_params.max_depth}</div>

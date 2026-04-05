@@ -5,7 +5,7 @@ import { ModelComparison } from '@/components/model-comparison';
 
 export const metadata = {
   title: 'Model Performance - Thermal Comfort Predictor',
-  description: 'Random Forest ML model performance metrics, accuracy analysis, and comparison with ASHRAE'
+  description: 'XGBoost ML model performance metrics, accuracy analysis, and comparison with ASHRAE'
 };
 
 export default function ModelPerformancePage() {

@@ -99,7 +99,7 @@ export function MLPredictionForm() {
                 tsv: data.prediction.tsv,
                 comfort_category: data.prediction.category,
                 confidence: data.prediction.confidence,
-                explanation: `Predicted using trained Random Forest model on India thermal comfort dataset. Accuracy: ${(data.modelInfo?.accuracy * 100).toFixed(1)}%`,
+                explanation: `Predicted using trained XGBoost model on India thermal comfort dataset. Accuracy: ${(data.modelInfo?.accuracy * 100).toFixed(1)}%`,
               };
               predictionMode = 'hybrid';
             }

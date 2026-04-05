@@ -36,7 +36,7 @@ const featureImportance = [
 
 const modelPerformance = [
   { model: 'Logistic Regression', accuracy: 0.78 },
-  { model: 'Random Forest', accuracy: 0.85 },
+  { model: 'XGBoost', accuracy: 0.85 },
   { model: 'XGBoost', accuracy: 0.82 },
 ];
 
@@ -164,7 +164,7 @@ export function AnalyticsDashboard() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent mt-1">•</span>
-            <span>Random Forest model achieves the highest accuracy at 85% on test data</span>
+            <span>XGBoost model achieves the highest accuracy at 85% on test data</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent mt-1">•</span>

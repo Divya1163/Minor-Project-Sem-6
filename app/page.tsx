@@ -36,7 +36,7 @@ export default function Home() {
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Advanced AI-powered system optimized for Indian climate conditions. Predict thermal comfort levels based on environmental and personal factors.
-              Powered by Random Forest models trained on 769 real thermal comfort observations from India.
+              Powered by XGBoost models trained on 769 real thermal comfort observations from India.
             </p>
             <div className="flex items-center gap-4 mt-4 flex-wrap">
               <div className="flex items-center gap-2 text-sm text-accent">
@@ -121,7 +121,7 @@ export default function Home() {
                 <h3 className="font-semibold text-accent">Model Info</h3>
                 <div className="space-y-2 text-xs text-muted-foreground">
                   <div>
-                    <span className="text-foreground font-semibold">Best Model:</span> Random Forest
+                    <span className="text-foreground font-semibold">Best Model:</span> XGBoost
                   </div>
                   <div>
                     <span className="text-foreground font-semibold">Accuracy:</span> 85%
