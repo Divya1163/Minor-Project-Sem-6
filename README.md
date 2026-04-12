@@ -125,7 +125,6 @@ Expected response:
 ```json
 { "model_loaded": true, "scaler_loaded": true, "status": "ready" }
 ```
-
 ### Step 3 — Start the Next.js Frontend
 Open **Terminal 2**:
 ```bash
