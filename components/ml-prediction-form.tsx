@@ -80,11 +80,12 @@ export function MLPredictionForm() {
       // Try to get server-side prediction if enabled (using real trained model)
       if (useServer) {
         try {
-          const response = await fetch('/api/predict-real', {
+          const response = await fetch('/api/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               ta: formData.ta,
+              tr: formData.tr,
               rh: formData.rh,
               v: formData.v,
               met: formData.met,
