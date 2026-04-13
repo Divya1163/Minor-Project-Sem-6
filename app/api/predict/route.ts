@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Flask backend URL
-const FLASK_API_URL = 'http://localhost:5000';
+const FLASK_API_URL = 'https://thermal-comfort-backend.onrender.com';
 
 interface PredictionRequest {
   ta: number;  // Air temperature (°C)
